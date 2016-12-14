@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Users</title>
+    </head>
+    <body>
+    <h1>Users</h1>
+    <a href="/User/add">Add New User</a> <br />
+
+    <br />
+
+    <table border="1">
+            <tr><th>Username</th><th>Name</th></tr>
+            <% for(var i=0; result.length > i; i++ ) { %>
+            <tr>
+                <td><a href="/User/?Username=<%= result[i].Username%>"><%= result[i].Username%></a></td>
+                <td><%= result[i].Fname + ' ' + result[i].Lname%>
+
+                <td><form action="/User/delete/">
+                        <input type="hidden" name="Username" id="Username" value="<%= result[i].Username %>" />
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+    </body>
+
+</html>

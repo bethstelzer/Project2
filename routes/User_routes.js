@@ -1,89 +1,93 @@
-//copy code from school_routes.js and change where says school to address
+//copy code from school_routes.js and change where says school to User
 //do the same
+
 var express = require('express');
 var router = express.Router();
-var address_dal = require('../model/address_dal');
+var User_dal = require('../model/User_dal');
 
 
-// View All addresses
+// View All Users
 router.get('/all', function(req, res) {
-    address_dal.getAll(function(err, result){
+    User_dal.getAll(function(err, result){
         if(err) {
             res.send(err);
         }
         else {
-            res.render('address/addressViewAll', { 'result':result });
+            res.render('User/UserViewAll', { 'result':result });
         }
     });
 
 });
 
-// View the address for the given id
+// View the User for the given id
 router.get('/', function(req, res){
-    if(req.query.address_id == null) {
-        res.send('address_id is null');
+    if(req.query.Username == null) {
+        res.send('Username is null');
     }
     else {
-        address_dal.getById(req.query.address_id, function(err,result) {
+        User_dal.getById(req.query.Username, function(err,result) {
             if (err) {
                 res.send(err);
             }
             else {
-                res.render('address/addressViewById', {'result': result});
+                res.render('User/UserViewById', {'result': result});
             }
         });
     }
 });
 
-// Return the add a new address form
+// Return the add a new User form
 router.get('/add', function(req, res){
     // passing all the query parameters (req.query) to the insert function instead of each individually
-    address_dal.getAll(function(err,result) {
+    User_dal.getAll(function(err,result) {
         if (err) {
             res.send(err);
         }
         else {
-            res.render('address/addressAdd', {'address': result});
+            res.render('User/UserAdd', {'User': result});
         }
     });
 });
 
-// insert a address record
+// insert a User record
 router.get('/insert', function(req, res){
     // simple validation
-    if(req.query.street == null) {
-        res.send('Street must be provided.');
+    if(req.query.Username == null) {
+        res.send('Username must be provided.');
     }
-    else if(req.query.zip_code == null) {
-        res.send('A zip_code must be added');
+    else if(req.query.Fname == null) {
+        res.send('A first name must be selected');
+    }
+    else if(req.query.Lname == null) {
+        res.send('A last name must be selected');
     }
     else {
         // passing all the query parameters (req.query) to the insert function instead of each individually
-        address_dal.insert(req.query, function(err,result) {
+        User_dal.insert(req.query, function(err,result) {
             if (err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/address/all');
+                res.redirect(302, '/User/all');
             }
         });
     }
 });
 
-// Delete a address for the given email
+// Delete a User for the given Username
 router.get('/delete', function(req, res){
-    if(req.query.address_id == null) {
-        res.send('address_id is null');
+    if(req.query.Username == null) {
+        res.send('Username is null');
     }
     else {
-        address_dal.delete(req.query.address_id, function(err, result){
+        User_dal.delete(req.query.Username, function(err, result){
             if(err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/address/all');
+                res.redirect(302, '/User/all');
             }
         });
     }
