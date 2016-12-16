@@ -1,40 +1,40 @@
 var express = require('express');
 var router = express.Router();
-var school_dal = require('../model/school_dal');
+var Shoes_dal = require('../model/Shoes_dal');
 var address_dal = require('../model/User_Orders_dal');
 
 
-// View All schools
+// View All Shoess
 router.get('/all', function(req, res) {
-    school_dal.getAll(function(err, result){
+    Shoes_dal.getAll(function(err, result){
         if(err) {
             res.send(err);
         }
         else {
-            res.render('school/schoolViewAll', { 'result':result });
+            res.render('Shoes/ShoesViewAll', { 'result':result });
         }
     });
 
 });
 
-// View the school for the given id
+// View the Shoes for the given id
 router.get('/', function(req, res){
-    if(req.query.school_id == null) {
-        res.send('school_id is null');
+    if(req.query.Shoe == null) {
+        res.send('Shoe is null');
     }
     else {
-        school_dal.getById(req.query.school_id, function(err,result) {
+        Shoes_dal.getById(req.query.Shoe, function(err,result) {
             if (err) {
                 res.send(err);
             }
             else {
-                res.render('school/schoolViewById', {'result': result});
+                res.render('Shoes/ShoesViewById', {'result': result});
             }
         });
     }
 });
 
-// Return the add a new school form
+// Return the add a new Shoes form
 router.get('/add', function(req, res){
     // passing all the query parameters (req.query) to the insert function instead of each individually
     address_dal.getAll(function(err,result) {
@@ -42,47 +42,47 @@ router.get('/add', function(req, res){
             res.send(err);
         }
         else {
-            res.render('school/schoolAdd', {'address': result});
+            res.render('Shoes/ShoesAdd', {'address': result});
         }
     });
 });
 
-// insert a school record
+// insert a Shoes record
 router.get('/insert', function(req, res){
     // simple validation
-    if(req.query.school_name == null) {
-        res.send('School Name must be provided.');
+    if(req.query.Shoes_name == null) {
+        res.send('Shoes Name must be provided.');
     }
-    else if(req.query.address_id == null) {
+    else if(req.query.addres == null) {
         res.send('An Address must be selected');
     }
     else {
         // passing all the query parameters (req.query) to the insert function instead of each individually
-        school_dal.insert(req.query, function(err,result) {
+        Shoes_dal.insert(req.query, function(err,result) {
             if (err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/school/all');
+                res.redirect(302, '/Shoes/all');
             }
         });
     }
 });
 
-// Delete a school for the given school_id
+// Delete a Shoes for the given Shoe
 router.get('/delete', function(req, res){
-    if(req.query.school_id == null) {
-        res.send('school_id is null');
+    if(req.query.Shoe == null) {
+        res.send('Shoe is null');
     }
     else {
-        school_dal.delete(req.query.school_id, function(err, result){
+        Shoes_dal.delete(req.query.Shoe, function(err, result){
             if(err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/school/all');
+                res.redirect(302, '/Shoes/all');
             }
         });
     }

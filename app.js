@@ -8,8 +8,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var school = require('./routes/school_routes');
 var User = require('./routes/User_routes');
-var resume = require('./routes/resume_routes');
-var company = require('./routes/company_routes');
+var Users_Buy = require('./routes/Users_Buy_routes');
+var AboutPage = require('./routes/AboutPage_routes');
 var User_Orders = require ('./routes/User_Orders_routes');
 var skill = require('./routes/skill_routes');
 
@@ -31,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/school', school);
 app.use('/User', User);
-app.use('/resume', resume);
-app.use('/company', company);
+app.use('/Users_Buy', Users_Buy);
+app.use('/AboutPage', AboutPage);
 app.use('/User_Orders', User_Orders);
 app.use('/skill', skill);
 

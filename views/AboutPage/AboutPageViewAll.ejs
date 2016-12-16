@@ -4,7 +4,7 @@
     </head>
     <body>
         <h1>Companies</h1>
-        <a href="/company/add">Add New Company</a> <br />
+        <a href="/AboutPage/add">Add New AboutPage</a> <br />
 
         <br />
 
@@ -12,10 +12,10 @@
             <tr><th>Name</th></tr>
             <% for(var i=0; result.length > i; i++ ) { %>
             <tr>
-                <td><a href="/company/?company_id=<%= result[i].company_id %>"><%= result[i].company_name %></a></td>
+                <td><a href="/AboutPage/?AboutPage_id=<%= result[i].AboutPage_id %>"><%= result[i].AboutPage_name %></a></td>
 
-                <td><form action="/company/delete/">
-                        <input type="hidden" name="company_id" id="company_id" value="<%= result[i].company_id %>" />
+                <td><form action="/AboutPage/delete/">
+                        <input type="hidden" name="AboutPage_id" id="AboutPage_id" value="<%= result[i].AboutPage_id %>" />
                         <input type="submit" value="Delete"/>
                     </form>
                 </td>

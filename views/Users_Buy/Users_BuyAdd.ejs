@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Add New Users_Buy</title>
+</head>
+<body>
+<h1>Add New Users_Buy</h1>
+<form action="/Users_Buy/insert" method="get">
+    Username: <input id="Usersname" name="Username" type="text" />
+    <br />
+    <br />
+    Code
+    <select id="Code" name="Code">
+        <% for(var i=0; Users_Buy.length > i; i++ ) { %>
+        <option value="<%= Users_Buy[i].username %>"><%= Users_Buy[i].code %></option>
+        <% } %>
+    </select>
+
+    <input type="submit" />
+
+</form>
+</body>
+
+</html>

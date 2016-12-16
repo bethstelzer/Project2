@@ -1,40 +1,40 @@
 var express = require('express');
 var router = express.Router();
-var resume_dal = require('../model/resume_dal');
+var Users_Buy_dal = require('../model/Users_Buy_dal');
 var account_dal = require('../model/User_dal');
 
 
-// View All resumes
+// View All Users_Buys
 router.get('/all', function(req, res) {
-    resume_dal.getAll(function(err, result){
+    Users_Buy_dal.getAll(function(err, result){
         if(err) {
             res.send(err);
         }
         else {
-            res.render('resume/resumeViewAll', { 'result':result });
+            res.render('Users_Buy/Users_BuyViewAll', { 'result':result });
         }
     });
 
 });
 
-// View the resumes for the given id
+// View the Users_Buys for the given id
 router.get('/', function(req, res){
-    if(req.query.resume_id == null) {
-        res.send('resume_id is null');
+    if(req.query.Users_Buy_id == null) {
+        res.send('Users_Buy_id is null');
     }
     else {
-        resume_dal.getById(req.query.resume_id, function(err,result) {
+        Users_Buy_dal.getById(req.query.Users_Buy_id, function(err,result) {
             if (err) {
                 res.send(err);
             }
             else {
-                res.render('resume/resumeViewById', {'result': result});
+                res.render('Users_Buy/Users_BuyViewById', {'result': result});
             }
         });
     }
 });
 
-// Return the add a new resume form
+// Return the add a new Users_Buy form
 router.get('/add', function(req, res){
     // passing all the query parameters (req.query) to the insert function instead of each individually
     account_dal.getAll(function(err,result) {
@@ -42,47 +42,47 @@ router.get('/add', function(req, res){
             res.send(err);
         }
         else {
-            res.render('resume/resumeAdd', {'account': result});
+            res.render('Users_Buy/Users_BuyAdd', {'account': result});
         }
     });
 });
 
-// insert a resume record
+// insert a Users_Buy record
 router.get('/insert', function(req, res){
     // simple validation
-    if(req.query.resume_name == null) {
-        res.send('Resume Name must be provided.');
+    if(req.query.Username == null) {
+        res.send('Username Name must be provided.');
     }
-    else if(req.query.account_id == null) {
-        res.send('An Account must be selected');
+    else if(req.query.code == null) {
+        res.send('An code must be selected');
     }
     else {
         // passing all the query parameters (req.query) to the insert function instead of each individually
-        resume_dal.insert(req.query, function(err,result) {
+        Users_Buy_dal.insert(req.query, function(err,result) {
             if (err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/resume/all');
+                res.redirect(302, '/Users_Buy/all');
             }
         });
     }
 });
 
-// Delete a resume for the given resume_id
+// Delete a Users_Buy for the given Users_Buy_id
 router.get('/delete', function(req, res){
-    if(req.query.resume_id == null) {
-        res.send('resume_id is null');
+    if(req.query.Users_Buy_id == null) {
+        res.send('Users_Buy_id is null');
     }
     else {
-        resume_dal.delete(req.query.resume_id, function(err, result){
+        Users_Buy_dal.delete(req.query.Users_Buy_id, function(err, result){
             if(err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/resume/all');
+                res.redirect(302, '/Users_Buy/all');
             }
         });
     }

@@ -5,16 +5,16 @@ var db  = require('./db_connection.js');
 var connection = mysql.createConnection(db.config);
 
 exports.getAll = function(callback) {
-    var query = 'SELECT * FROM resume_view;';
+    var query = 'SELECT * FROM Users_Buy;';
 
     connection.query(query, function(err, result) {
         callback(err, result);
     });
 };
 
-exports.getById = function(resume_id, callback) {
-    var query = 'SELECT * FROM resume_view WHERE resume_id = ?';
-    var queryData = [resume_id];
+exports.getById = function(Users_Buy_id, callback) {
+    var query = 'SELECT * FROM Users_Buy WHERE Users_Buy = ?';
+    var queryData = [Users_Buy];
 
     connection.query(query, queryData, function(err, result) {
         callback(err, result);
@@ -22,11 +22,11 @@ exports.getById = function(resume_id, callback) {
 };
 
 exports.insert = function(params, callback) {
-    var query = 'INSERT INTO resume (resume_name, user_account_id) VALUES (?, ?)';
+    var query = 'INSERT INTO Users_Buy (Username, Code) VALUES (?, ?)';
 
     // the question marks in the sql query above will be replaced by the values of the
     // the data in queryData
-    var queryData = [params.resume_name, params.account_id];
+    var queryData = [params.Username, params.code];
 
     connection.query(query, queryData, function(err, result) {
         callback(err, result);
@@ -34,9 +34,9 @@ exports.insert = function(params, callback) {
 
 }
 
-exports.delete = function(resume_id, callback) {
-    var query = 'DELETE FROM resume WHERE resume_id = ?';
-    var queryData = [resume_id];
+exports.delete = function(Users_Buy, callback) {
+    var query = 'DELETE FROM Users_Buy WHERE Username = ?';
+    var queryData = [Users_Buy];
 
     connection.query(query, queryData, function(err, result) {
         callback(err, result);
